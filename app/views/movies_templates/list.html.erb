@@ -1,1 +1,27 @@
 <h1>List of all movies</h1>
+
+<% Movie.all.each do |a_movie| %>
+  <table border="3">
+    <tr>
+      <th>ID</th>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Director</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td> <%= a_movie.id %> </td>
+      <td> <img src="<%= a_movie.image %>" </td>
+      <td> <%= a_movie.title %> </td>
+      <td> <%= a_movie.year %> </td>
+      <td>
+      <!-- we need to lookup the director id to match -->
+        <% match = Director.where({ :id => a_movie.director_id }) %>
+        <% director = match.at(0) %> 
+        <%= director.name %>
+      </td>
+      <td> <a href="/movies/<%= a_movie.id %>">Show details</a></td>
+    </tr>
+  </table>
+<% end %>
